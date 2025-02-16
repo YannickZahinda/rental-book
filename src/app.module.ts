@@ -1,9 +1,27 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
+import { PropertiesModule } from './properties/properties.module';
+import { BookingsModule } from './bookings/bookings.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './users/user.entity';
+import { Property } from './properties/property.entity';
+import { Booking } from './bookings/booking.entity';
 
 @Module({
-  imports: [],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: '',
+      database: 'rental_db',
+      entities: [User, Property, Booking],
+      synchronize: true,
+    }),
+    UsersModule, PropertiesModule, BookingsModule],
   controllers: [AppController],
   providers: [AppService],
 })

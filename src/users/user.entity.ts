@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Property } from "src/properties/property.entity";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 
 @Entity('users')
 export class User {
@@ -13,4 +14,7 @@ export class User {
 
   @Column({ type: 'enum', enum: ['renter', 'host'], default: 'renter' })
   role: 'renter' | 'host';
+
+  @OneToMany(() => Property, (property) => property.host)
+  properties: Property[];
 }

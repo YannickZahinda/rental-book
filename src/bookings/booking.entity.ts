@@ -1,4 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Property } from "src/properties/property.entity";
+import { User } from "src/users/user.entity";
 
 @Entity('bookings')
 export class Booking {
