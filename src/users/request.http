@@ -1,0 +1,21 @@
+### Creating a host user
+
+POST http://localhost:3000/users/create
+Content-Type: application/json 
+
+{
+    "name":"Yannick Zahinda",
+    "email":"ymulikuza@gmail.com",
+    "role":"host"
+}
+
+### Creating a rental user
+
+POST http://localhost:3000/users/create
+Content-Type: application/json
+
+{
+    "name":"Jane Renter",
+    "email":"renter@example.com",
+    "role":"renter"
+}
