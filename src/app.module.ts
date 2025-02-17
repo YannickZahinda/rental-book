@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { Property } from './properties/property.entity';
 import { Booking } from './bookings/booking.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { Booking } from './bookings/booking.entity';
       entities: [User, Property, Booking],
       synchronize: true,
     }),
-    UsersModule, PropertiesModule, BookingsModule],
+    UsersModule, PropertiesModule, BookingsModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

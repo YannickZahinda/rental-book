@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { UsersService } from "../users.service";
+import { UsersService } from "../users/users.service";
 
 @Injectable()
 export class AuthService {
@@ -9,7 +9,7 @@ export class AuthService {
         private jwtService: JwtService
     ) {}
 
-    async validateOAuthUser(profile: any){
+    async validateUser(profile: any){
         const {id, emails, displayName } = profile;
         let user = await this.usersService.findOne(emails[0].value);
 

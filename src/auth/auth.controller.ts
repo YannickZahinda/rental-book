@@ -1,20 +1,19 @@
 import { Controller, Get, Req, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from "./auth.service";
+import { GoogleAuthGuard } from "./guards/google-auth/google-auth.guard";
 
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService){}
 
+    @UseGuards(GoogleAuthGuard)
     @Get('google/login')
-    @UseGuards(AuthGuard('google'))
-    async googleAuth() {
+    googleLogin() {
         return {message: "Redirecting to Google Login..."};
     }
 
-    @Get('google/redirect')
-    @UseGuards(AuthGuard('google'))
-    async googleAuthRediret(@Req() req) {
-        return this.authService.validateOAuthUser(req.user)
-    }
+    @UseGuards(GoogleAuthGuard)
+    @Get('google/callback')
+    googleCallback() {   }
 }
