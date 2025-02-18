@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Req, Res, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from "./auth.service";
 import { GoogleAuthGuard } from "./guards/google-auth/google-auth.guard";
@@ -15,5 +15,23 @@ export class AuthController {
 
     @UseGuards(GoogleAuthGuard)
     @Get('google/callback')
-    googleCallback() {   }
+    async googleCallback(@Req() req, @Res() res) {   
+
+        if (!req.user) {
+            return res.redirect('/login?error=authentication_failed');
+        }
+        
+        if(!req.user || !req.user.id) {
+            throw new Error("User ID is missing from Google authentication.")
+        }
+        const response = await this.authService.login(req.user.id);
+        res.redirect(`http://localhost:5173?token=${response.accessToken}`)
+        console.log("Google callback user: ", req.user);
+
+    }
+
+    @Post("refresh")
+    async refresh(@Body("refreshToken") token: string) {
+        return this.authService.refreshToken(token)
+    }
 }

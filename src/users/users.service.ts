@@ -19,8 +19,19 @@ export class UsersService {
         return await this.userRepository.findOne({ where: {id}})
     }
 
+    async findByEmail(email: string): Promise <User | null> {
+        return await this.userRepository.findOne( {where: {email}})
+    }
+
     async updateRole(id: number, role: 'renter' | 'host'): Promise<User | null> {
         await this.userRepository.update(id, {role});
         return this.findOne(id)
+    }
+
+    async saveRefreshToken(userId: number, refreshToken: string) {
+        if (!userId){
+            throw new Error("User ID is missing. Cannot save refresh token");
+        }
+        await this.userRepository.update(userId, { refreshToken })
     }
 }

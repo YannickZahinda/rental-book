@@ -15,6 +15,9 @@ export class User {
   @Column({ type: 'enum', enum: ['renter', 'host'], default: 'renter' })
   role: 'renter' | 'host';
 
+  @Column({nullable: true})
+  refreshToken?: string;
+
   @OneToMany(() => Property, (property) => property.host)
   properties: Property[];
 }
