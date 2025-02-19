@@ -8,7 +8,7 @@ export class PropertiesController {
     constructor(private readonly propertiesService: PropertiesService){}
 
     @Post()
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(JwtAuthGuard)
     create(@Req() req, @Body() createPropertyDto: CreatePropertyDto) {
         const user = req.user;
 
