@@ -25,8 +25,8 @@ export class AuthController {
             throw new Error("User ID is missing from Google authentication.")
         }
         const response = await this.authService.login(req.user.id);
-        res.redirect(`http://localhost:5173?token=${response.accessToken}`)
-        console.log("Google callback user: ", req.user);
+        res.redirect(`http://localhost:5173/login?token=${response.accessToken}`)
+        console.log("Google callback user: ", response);
 
     }
 
