@@ -1,0 +1,12 @@
+### Creating a property
+
+POST http://localhost:3000/properties
+Content-Type: application/json
+
+{
+    "title":"Makuza 13th floor",
+    "description":"Makuza Room for night sleep for your long days",
+    "price_per_night":80,
+    "location":"Muji wa Kigali N. bye una penda",
+    "hostId":1
+}

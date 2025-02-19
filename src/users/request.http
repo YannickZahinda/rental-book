@@ -19,3 +19,11 @@ Content-Type: application/json
     "email":"renter@example.com",
     "role":"renter"
 }
+
+### Get all users
+
+GET http://localhost:3000/users/all
+
+### Deleting a user
+
+DELETE http://localhost:3000/users/1

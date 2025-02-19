@@ -1,18 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Property } from './property.entity';
 import { CreatePropertyDto} from './dto/create-property.dto';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class PropertiesService {
     constructor(
         @InjectRepository(Property) private propertyRepository: Repository<Property>,
+        @InjectRepository(User) private readonly userRepository: Repository<User>,
     ){}
 
-    async create(createPropertyDto: CreatePropertyDto): Promise<Property> {
-        const property = this.propertyRepository.create(createPropertyDto);
-        return await this.propertyRepository.save(property)
+    async create(propertyDto: CreatePropertyDto, hostId: number): Promise<Property> {
+        const host = await this.userRepository.findOne({where: {id: hostId}});
+
+        if(!host) {
+            throw new NotFoundException('Host not found');
+        }
+        if(host.role !== 'host') {
+            throw new ForbiddenException('Only host can create properties.');
+        }
+        const property = this.propertyRepository.create({...propertyDto, host});
+        return  this.propertyRepository.save(property);
     }
 
     async findAll():Promise<Property[]> {

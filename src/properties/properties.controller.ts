@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Patch, UseGuards, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Patch, UseGuards, Req, ForbiddenException } from '@nestjs/common';
 import { PropertiesService } from './properties.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -7,13 +7,16 @@ import { AuthGuard } from '@nestjs/passport';
 export class PropertiesController {
     constructor(private readonly propertiesService: PropertiesService){}
 
-    @Post('create')
+    @Post()
     @UseGuards(AuthGuard('jwt'))
     create(@Req() req, @Body() createPropertyDto: CreatePropertyDto) {
+        const user = req.user;
+
+        console.log("🔐 User from Token:", user);
         if(req.user.role !== 'host') {
-            throw new Error('Only hosts can create properties')
+            throw new ForbiddenException('Only hosts can create properties');
         }
-        return this.propertiesService.create(createPropertyDto);
+        return this.propertiesService.create(createPropertyDto, user.id);
     }
 
     @Get()

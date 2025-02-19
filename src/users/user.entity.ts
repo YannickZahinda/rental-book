@@ -1,5 +1,5 @@
 import { Property } from "src/properties/property.entity";
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { AfterInsert, Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 
 @Entity('users')
 export class User {
@@ -20,4 +20,9 @@ export class User {
 
   @OneToMany(() => Property, (property) => property.host)
   properties: Property[];
+
+  @AfterInsert()
+  logInsert() {
+    console.log('Inserted User with id: ', this.id)
+  }
 }
