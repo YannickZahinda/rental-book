@@ -2,6 +2,7 @@
 
 POST http://localhost:3000/properties
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Illhbm5pY2sgWmFoaW5kYSIsImVtYWlsIjoieW11bGlrdXphQGdtYWlsLmNvbSIsInJvbGUiOiJob3N0IiwiaWF0IjoxNzM5OTkwMzM0LCJleHAiOjE3NDA1OTUxMzR9.Al9feoNqHz3eBUwzL2v5z-V3KSJqjLiNvPuOV4qg2gg
 
 {
     "title":"Makuza 13th floor",

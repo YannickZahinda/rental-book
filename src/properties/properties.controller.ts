@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Patch, UseGuards, Req, Forb
 import { PropertiesService } from './properties.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/guards/JwtGuard/jwt.auth.guard';
 
 @Controller('properties')
 export class PropertiesController {
