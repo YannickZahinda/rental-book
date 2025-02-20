@@ -14,7 +14,8 @@ export class BookingsService {
     @InjectRepository(Property) private readonly propertyRepo: Repository <Property>
   ) {}
 
-  async create(renterId: number, propertyId:number, checkIn: Date, checkOut: Date){
+  async create(createBookingDto: CreateBookingDto){
+    const { renterId, propertyId, check_in, check_out } = createBookingDto;
     const renter = await this.userRepo.findOne({where: {id: renterId}});
     const property = await this.propertyRepo.findOne({where: {id: propertyId}});
 
@@ -29,15 +30,15 @@ export class BookingsService {
       throw new NotFoundException("No property was found")
     }
 
-    if (checkIn >= checkOut) {
+    if (check_in >= check_out) {
       throw new BadRequestException("Check-in date must be before check-out date")
     }
 
     const existingBooking = await this.bookingRepository.findOne({
       where: {
         property: {id: propertyId},
-        check_in: checkIn,
-        check_out: checkOut,
+        check_in: check_in,
+        check_out: check_out,
       }
     });
 
@@ -48,15 +49,12 @@ export class BookingsService {
     const booking = this.bookingRepository.create({
       renter,
       property,
-      check_in: checkIn,
-      check_out: checkOut,
+      check_in: check_in,
+      check_out: check_out,
       status: 'pending',
     })
 
     return await this.bookingRepository.save(booking);
-
-
-    
   }
 
   async findOne(id: number): Promise<Booking | null> {

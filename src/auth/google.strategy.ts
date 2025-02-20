@@ -20,6 +20,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       clientSecret: googleConfiguration.clientSecret,
       callbackURL: googleConfiguration.callbackURL,
       scope: ['email', 'profile'],
+      prompt: 'select_account'
     } as StrategyOptions);
   }
 

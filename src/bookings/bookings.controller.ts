@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { BookingsService } from './bookings.service';
 import { CreateBookingDto } from './dtos/create-booking.dto';
+import { JwtAuthGuard } from 'src/auth/guards/JwtGuard/jwt.auth.guard';
 
 @Controller('bookings')
 export class BookingsController {
@@ -8,8 +9,14 @@ export class BookingsController {
         private readonly bookingService: BookingsService
     ){}
 
-    @Post('create')
-    create(@Body() createBookingDto: CreateBookingDto) {
+    @Post()
+    @UseGuards(JwtAuthGuard)
+    create(@Req() req,@Body() createBookingDto: CreateBookingDto) {
+        const user = req.user;
+
+        if(req.user.role !== 'renter') {
+            throw new ForbiddenException('Only renters can book properties')
+        }
         return this.bookingService.create(createBookingDto)
     }
 

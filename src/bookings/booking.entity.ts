@@ -13,8 +13,8 @@ export class Booking {
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   renter: User;
 
-  @Column({ type: 'date' })
-  check_in: Date;
+  @Column({ type: 'date'})
+  check_in: Date = new Date();
 
   @Column({ type: 'date' })
   check_out: Date;
