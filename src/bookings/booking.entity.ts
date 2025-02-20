@@ -17,7 +17,7 @@ export class Booking {
   check_in: Date = new Date();
 
   @Column({ type: 'date' })
-  check_out: Date;
+  check_out: Date = new Date();
 
   @Column({ type: 'enum', enum: ['pending', 'confirmed', 'canceled'], default: 'pending' })
   status: 'pending' | 'confirmed' | 'canceled';

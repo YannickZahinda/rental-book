@@ -9,7 +9,7 @@ export class JwtAuthGuard implements CanActivate {
         const request = context.switchToHttp().getRequest();
         const authHeader = request.headers.authorization;
 
-        if (!authHeader || !authHeader.startsWith('Bearer')){
+        if (!authHeader || !authHeader.startsWith('Bearer ')){
             throw new UnauthorizedException('Missing or invalid token');
         }
 
@@ -17,10 +17,12 @@ export class JwtAuthGuard implements CanActivate {
 
         try {
             const decoded = this.jwtService.verify(token);
+            console.log("Decode JWT: $$$$$$$$$$$$$$$$$::: ", decoded)
             request.user = decoded;
             return true;
         } catch (error) {
-            throw new UnauthorizedException('Invalid token');
+            console.error("JWT Verification Error: ", error)
+            throw new UnauthorizedException('Sorry Invalid token');
         }
     }
 }
