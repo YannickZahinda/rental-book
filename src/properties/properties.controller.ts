@@ -13,7 +13,7 @@ export class PropertiesController {
     create(@Req() req, @Body() createPropertyDto: CreatePropertyDto) {
         const user = req.user;
 
-        console.log("🔐 User from Token:", user);
+        console.log("User from Token:", user);
         if(req.user.role !== 'host') {
             throw new ForbiddenException('Only hosts can create properties');
         }
