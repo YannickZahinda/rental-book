@@ -53,6 +53,7 @@ export class AuthService {
                 throw new Error("User not found")
             }
             user = foundUser;
+            console.log("The found user is : ", user)
         }else {
             user = userOrId;
         }
@@ -66,7 +67,10 @@ export class AuthService {
 
         await this.usersService.saveRefreshToken(user.id, refreshToken);
 
-        return { accessToken, refreshToken, user}
+        const response = { accessToken, refreshToken, user};
+        console.log("Complete user response: **************(((  ", response);
+        return response;
+
     }
 
     async refreshToken(token: string) {

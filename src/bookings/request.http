@@ -10,3 +10,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6I
     "check_in":"2025-02-21",
     "check_out":"2025-02-28"
 }
+
+### Geting all bookings
+
+GET http://localhost:3000/bookings

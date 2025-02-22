@@ -25,6 +25,11 @@ export class BookingsController {
         return this.bookingService.findOne(id);
     }
 
+    @Get()
+    findAll() {
+        return this.bookingService.findAll();
+    }
+
     @Patch(':id')
     updateStatus(@Param('id') id: number, @Body() status: { status: 'pending' | 'confirmed' | 'canceled' }) {
         return this.bookingService.updateStatus(id, status.status);
