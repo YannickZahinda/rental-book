@@ -1,0 +1,21 @@
+### Booking a property
+
+POST http://localhost:3000/bookings
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6Illhbm5pY2sgWmFoaW5kYSIsImVtYWlsIjoieWFubmlja3phaGluZGE0NDJAZ21haWwuY29tIiwicm9sZSI6InJlbnRlciIsImlhdCI6MTc0MDAzMzc3NywiZXhwIjoxNzQwMTIwMTc3fQ.stUVQCW8IgU7xJ_prW8jNLc_CKlnc7UprrVvHQRj6l8
+
+{
+    "renterId":3,
+    "propertyId":1,
+    "check_in":"2025-02-21",
+    "check_out":"2025-02-28"
+}
+
+### Geting all bookings
+
+GET http://localhost:3000/bookings
+
+### Updating status
+
+PATCH  http://localhost:3000/bookings/1/status
+
